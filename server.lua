@@ -1,6 +1,13 @@
 ------ MADE BY MAX F. ------
 --FOR JUSTICE COMMUNITY RP--
 
+
+RegisterServerEvent('DeathScript:AdminReturn')
+
+AddEventHandler('DeathScript:AdminReturn', function(msg)
+    TriggerClientEvent("DeathScript:ShowNotification", -1, "~g~" .. msg)
+end)
+
 -- Commands
 RegisterCommand('revive', function(source, args, rawCommand)
    TriggerClientEvent('DeathScript:Revive', source) 
@@ -14,12 +21,12 @@ RegisterCommand('respawn', function(source, args, rawCommand)
     local target = tonumber( args[1] )
     if target then
         if GetPlayerGuid( target ) then
-            TriggerClientEvent('DeathScript:AdRev', target, source) 
+            TriggerClientEvent('DeathScript:AdminRevive', target) 
         else
             TriggerClientEvent('DeathScript:ShowNotification', source, '~r~Invalid Player')
         end
     else
-        TriggerClientEvent('DeathScript:AdRev', source) 
+        TriggerClientEvent('DeathScript:AdminRevive', source) 
     end 
 end, true)
 
@@ -27,11 +34,11 @@ end, true)
     local target = tonumber( args[1] )
     if target then
         if GetPlayerGuid( target ) then
-            TriggerClientEvent('DeathScript:AdRes', target, source) 
+            TriggerClientEvent('DeathScript:AdminRespawn', target) 
         else
             TriggerClientEvent('DeathScript:ShowNotification', source, '~r~Invalid Player')
         end
     else
-        TriggerClientEvent('DeathScript:AdRes', source) 
+        TriggerClientEvent('DeathScript:AdminRespawn', source) 
     end
  end, true)

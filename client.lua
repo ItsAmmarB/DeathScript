@@ -4,8 +4,8 @@
 RegisterNetEvent('DeathScript:ShowNotification')
 RegisterNetEvent('DeathScript:Revive')
 RegisterNetEvent('DeathScript:Respawn')
-RegisterNetEvent('DeathScript:AdRev')
-RegisterNetEvent('DeathScript:AdRes')
+RegisterNetEvent('DeathScript:AdminRevive')
+RegisterNetEvent('DeathScript:AdminRespawn')
 
 
 local respawnTime = 5
@@ -100,7 +100,7 @@ AddEventHandler("DeathScript:Respawn", function(source)
     end
 end)
 
-AddEventHandler("DeathScript:AdRev", function(src)
+AddEventHandler("DeathScript:AdminRevive", function(src)
     local ped = GetPlayerPed( src )
     if IsEntityDead( ped ) then
         NetworkResurrectLocalPlayer(GetEntityCoords(ped, true), true, true, false)
@@ -108,53 +108,33 @@ AddEventHandler("DeathScript:AdRev", function(src)
         ClearPedBloodDamage(ped)
         resetTimers()
         ShowNotification( '~g~You were admin revived' )
+        TriggerServerEvent("DeathScript:AdminReturn", GetPlayerName(src) .. " was admin revived!")
     else
-        ShowNotification( '~r~You are alive' )
+        ShowNotification( '~r~Player is alive' )
     end
 end)
 
-AddEventHandler("DeathScript:AdRes", function(src)
+AddEventHandler("DeathScript:AdminRespawn", function(src)
     local ped = GetPlayerPed( src )
     if IsEntityDead( ped ) then
         respawnPed(ped, spawnPoints[math.random(1,#spawnPoints)])
         resetTimers()
         ShowNotification( '~g~You were admin respawned' )
+        TriggerServerEvent("DeathScript:AdminReturn", GetPlayerName(src) .. " was admin respawned!")
+
     else
-        ShowNotification( '~r~You are alive' )
+        ShowNotification( '~r~Player is alive' )
     end
 end)
 
+ AddEventHandler("DeathScript:ShowNotification", function(message)
+    ShowNotification(message)
+ end)
 
--- Function under this line
-function ShowNotification(message)
-    SetNotificationTextEntry("STRING")
-    AddTextComponentString(message)
-    DrawNotification(true, false)
- end
-
-function respawnPed(ped, coords)
-	SetEntityCoordsNoOffset(ped, coords.x, coords.y, coords.z, false, false, false, true)
-	NetworkResurrectLocalPlayer(coords.x, coords.y, coords.z, coords.heading, true, false) 
-
-	SetPlayerInvincible(ped, false) 
-
-	TriggerEvent('playerSpawned', coords.x, coords.y, coords.z, coords.heading)
-	ClearPedBloodDamage(ped)
-end
-
-function Alert(message)
-    SetTextComponentFormat("STRING")
-    AddTextComponentString(message)
-    DisplayHelpTextFromStringLable(0, 0, 1, -1)
- end
-
+ -- Resets the timers for Respawn and Revive
  function resetTimers()
     respawnAllowed = false
     respawnTime = 120
     reviveAllowed = false
     reviveTime = 240
  end
-
- AddEventHandler("DeathScript:ShowNotification", function(message)
-    ShowNotification(message)
- end)
