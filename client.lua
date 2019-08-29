@@ -8,8 +8,8 @@ RegisterNetEvent('DeathScript:AdminRevive')
 RegisterNetEvent('DeathScript:AdminRespawn')
 
 
-local respawnTime = 5
-local reviveTime = 5
+local respawnTime = 240
+local reviveTime = 120
 local respawnAllowed = false
 local reviveAllowed = false
 
