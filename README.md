@@ -10,8 +10,8 @@ A script that gives you revive and respawn commands to aid your RP scenario. (Ad
 
 # Timers:
 If you wish to change the waiting time, go to the file with name of `Client.lua`, then change the numbers on:
-- line 11 `local respawnTime = 240` for the respawn waiting time.
-- line 12 `local reviveTime = 120` for the revive waiting time.
+- line 11 `local respawnTime = 120` for the respawn waiting time.
+- line 12 `local reviveTime = 240` for the revive waiting time.
 
 # Usage:
 You may use and edit the script as you wish but do not redistribute it.
