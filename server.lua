@@ -1,5 +1,6 @@
 ------ MADE BY MAX F. ------
 --FOR JUSTICE COMMUNITY RP--
+----------------------------
 
 RegisterServerEvent('DeathScript:AdminReturn')
 
@@ -8,6 +9,10 @@ AddEventHandler('DeathScript:AdminReturn', function(msg)
 end)
 
 -- Commands
+RegisterCommand('togds', function(source, args, rawCommand)
+    TriggerClientEvent('DeathScript:Toggle', -1) 
+end, true)
+
 RegisterCommand('revive', function(source, args, rawCommand)
    TriggerClientEvent('DeathScript:Revive', source) 
 end, false)
@@ -41,3 +46,9 @@ RegisterCommand('adres', function(source, args, rawCommand)
         TriggerClientEvent('DeathScript:AdminRespawn', source) 
     end
 end, true)
+
+RegisterServerEvent("Print")
+
+AddEventHandler("Print", function(msg)
+    print(msg)
+end)

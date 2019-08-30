@@ -6,14 +6,17 @@ RegisterNetEvent('DeathScript:Revive')
 RegisterNetEvent('DeathScript:Respawn')
 RegisterNetEvent('DeathScript:AdminRevive')
 RegisterNetEvent('DeathScript:AdminRespawn')
+RegisterNetEvent('DeathScript:Toggle')
 
 
-local respawnTime = 5
-local reviveTime = 5
+
+local respawnTime = 120
+local reviveTime = 240
 local respawnAllowed = false
 local reviveAllowed = false
 
 spawnPoints = {}
+deathToggle = true
 
 AddEventHandler('onClientMapStart', function()
     exports.spawnmanager:spawnPlayer()
@@ -46,23 +49,27 @@ Citizen.CreateThread(function()
         Citizen.Wait(5000)
         local ped = GetPlayerPed(-1)
         if IsEntityDead(ped) then
-            SetPlayerInvincible(ped, true)
-            SetEntityHealth(ped, 1)
-            if respawnTime > 0 then 
-                respawnTime = respawnTime - 5
-                respawnTimerText = '~r~Respawn in ' .. respawnTime .. ' seconds!'
+            if deathToggle then
+                SetPlayerInvincible(ped, true)
+                SetEntityHealth(ped, 1)
+                if respawnTime > 0 then 
+                    respawnTime = respawnTime - 5
+                    respawnTimerText = '~r~Respawn in ' .. respawnTime .. ' seconds!'
+                else
+                respawnTimerText = '~g~You can Respawn | /respawn!'
+                    respawnAllowed = true
+                end
+                if reviveTime > 0 then 
+                    reviveTime = reviveTime - 5
+                    reviveTimerText = '~r~Revive in ' .. reviveTime .. ' seconds!'
+                else
+                    reviveTimerText = '~g~You can Revive | /revive!'
+                    reviveAllowed = true
+                end
+                ShowNotification(respawnTimerText .. '\n' .. reviveTimerText)            
             else
-               respawnTimerText = '~g~You can Respawn | /respawn!'
-                respawnAllowed = true
+                respawnPed(ped, spawnPoints[math.random(1,#spawnPoints)])
             end
-            if reviveTime > 0 then 
-                reviveTime = reviveTime - 5
-                reviveTimerText = '~r~Revive in ' .. reviveTime .. ' seconds!'
-            else
-                reviveTimerText = '~g~You can Revive | /revive!'
-                reviveAllowed = true
-            end
-            ShowNotification(respawnTimerText .. '\n' .. reviveTimerText)
         else 
             resetTimers()
         end
@@ -74,10 +81,7 @@ AddEventHandler("DeathScript:Revive", function( src )
     local ped = GetPlayerPed( src )
     if IsEntityDead( ped ) then
         if reviveAllowed then
-            NetworkResurrectLocalPlayer(GetEntityCoords(ped, true), true, true, false)
-            SetPlayerInvincible(ped, false)
-            ClearPedBloodDamage(ped)
-            resetTimers()
+            revivePed(ped)
         else
             ShowNotification("~r~You need to wait " .. reviveTime .. ' seconds')
         end
@@ -103,10 +107,7 @@ end)
 AddEventHandler("DeathScript:AdminRevive", function( target )
     local ped = GetPlayerPed( target )
     if IsEntityDead( ped ) then
-        NetworkResurrectLocalPlayer(GetEntityCoords(ped, true), true, true, false)
-        SetPlayerInvincible(ped, false)
-        ClearPedBloodDamage(ped)
-        resetTimers()
+        revivePed(ped)
         ShowNotification( '~g~You were admin revived' )
         TriggerServerEvent("DeathScript:AdminReturn", GetPlayerName(target) .. " was admin revived!")
     else
@@ -117,17 +118,24 @@ end)
 AddEventHandler("DeathScript:AdminRespawn", function( target )
     local ped = GetPlayerPed( target )
     if IsEntityDead( ped ) then
-        respawnPed( ped, spawnPoints[ math.random( 1, #spawnPoints) ] )
-        resetTimers()
+        revivePed(ped)
         ShowNotification( '~g~You were admin respawned' )
         TriggerServerEvent("DeathScript:AdminReturn", GetPlayerName( target ) .. " was admin respawned!")
-
     else
         ShowNotification( '~r~Player is alive' )
     end
 end)
 
- AddEventHandler("DeathScript:ShowNotification", function( message )
+AddEventHandler("DeathScript:Toggle", function()
+    if toggleDeath then
+        ShowNotification("~r~ DeathScript was disabled")
+    else
+        ShowNotification("~r~ DeathScript was enabled")
+    end
+    toggleDeath()
+end)
+
+AddEventHandler("DeathScript:ShowNotification", function( message )
     ShowNotification(message)
  end)
 
@@ -137,4 +145,8 @@ end)
     respawnTime = 120
     reviveAllowed = false
     reviveTime = 240
+end
+
+function toggleDeath()
+    deathToggle = not deathToggle
 end

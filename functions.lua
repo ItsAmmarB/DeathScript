@@ -14,7 +14,15 @@ function respawnPed(ped, coords)
 	SetPlayerInvincible(ped, false) 
 
 	TriggerEvent('playerSpawned', coords.x, coords.y, coords.z, coords.heading)
-	ClearPedBloodDamage(ped)
+    ClearPedBloodDamage(ped)
+    resetTimers()
+end
+
+function revivePed(message)
+    NetworkResurrectLocalPlayer(GetEntityCoords(ped, true), true, true, false)
+    SetPlayerInvincible(ped, false)
+    ClearPedBloodDamage(ped)
+    resetTimers()
 end
 
 function Alert(message)
