@@ -5,7 +5,7 @@ function ShowNotification(message)
     SetNotificationTextEntry("STRING")
     AddTextComponentString(message)
     DrawNotification(true, false)
- end
+end
 
 function respawnPed(ped, coords)
 	SetEntityCoordsNoOffset(ped, coords.x, coords.y, coords.z, false, false, false, true)
@@ -21,4 +21,4 @@ function Alert(message)
     SetTextComponentFormat("STRING")
     AddTextComponentString(message)
     DisplayHelpTextFromStringLable(0, 0, 1, -1)
- end
+end

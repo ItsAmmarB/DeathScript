@@ -8,11 +8,12 @@ RegisterNetEvent('DeathScript:AdminRevive')
 RegisterNetEvent('DeathScript:AdminRespawn')
 
 
-local respawnTime = 240
-local reviveTime = 120
+local respawnTime = 5
+local reviveTime = 5
 local respawnAllowed = false
 local reviveAllowed = false
 
+spawnPoints = {}
 
 AddEventHandler('onClientMapStart', function()
     exports.spawnmanager:spawnPlayer()
@@ -21,7 +22,6 @@ AddEventHandler('onClientMapStart', function()
 end)
 
 Citizen.CreateThread(function()
-    spawnPoints = {}
 
     function createSpawnPoint(x1,x2,y1,y2,z,heading)
         local xValue = math.random(x1,x2) + 0.0001
@@ -36,7 +36,6 @@ Citizen.CreateThread(function()
         table.insert(spawnPoints,newObject)
     end
 
-
     createSpawnPoint(-448, -448, -340, -329, 35.5, 0) -- Mount Zonah
     createSpawnPoint(372, 375, -596, -594, 30.0, 0)   -- Pillbox Hill
     createSpawnPoint(335, 340, -1400, -1390, 34.0, 0) -- Central Los Santos
@@ -45,7 +44,7 @@ Citizen.CreateThread(function()
 
 	while true do
         Citizen.Wait(5000)
-        ped = GetPlayerPed(-1)
+        local ped = GetPlayerPed(-1)
         if IsEntityDead(ped) then
             SetPlayerInvincible(ped, true)
             SetEntityHealth(ped, 1)
@@ -64,14 +63,15 @@ Citizen.CreateThread(function()
                 reviveAllowed = true
             end
             ShowNotification(respawnTimerText .. '\n' .. reviveTimerText)
+        else 
+            resetTimers()
         end
     end
 end)
 
-
--- Events handlers for the commands
-AddEventHandler("DeathScript:Revive", function(source)
-    local ped = GetPlayerPed( source )
+-- Events handlers for the commands.
+AddEventHandler("DeathScript:Revive", function( src )
+    local ped = GetPlayerPed( src )
     if IsEntityDead( ped ) then
         if reviveAllowed then
             NetworkResurrectLocalPlayer(GetEntityCoords(ped, true), true, true, false)
@@ -86,8 +86,8 @@ AddEventHandler("DeathScript:Revive", function(source)
     end
 end)
 
-AddEventHandler("DeathScript:Respawn", function(source)
-    local ped = GetPlayerPed( source )
+AddEventHandler("DeathScript:Respawn", function( src )
+    local ped = GetPlayerPed( src )
     if IsEntityDead( ped ) then
         if respawnAllowed then
             respawnPed(ped, spawnPoints[math.random(1,#spawnPoints)])
@@ -100,34 +100,34 @@ AddEventHandler("DeathScript:Respawn", function(source)
     end
 end)
 
-AddEventHandler("DeathScript:AdminRevive", function(src)
-    local ped = GetPlayerPed( src )
+AddEventHandler("DeathScript:AdminRevive", function( target )
+    local ped = GetPlayerPed( target )
     if IsEntityDead( ped ) then
         NetworkResurrectLocalPlayer(GetEntityCoords(ped, true), true, true, false)
         SetPlayerInvincible(ped, false)
         ClearPedBloodDamage(ped)
         resetTimers()
         ShowNotification( '~g~You were admin revived' )
-        TriggerServerEvent("DeathScript:AdminReturn", GetPlayerName(src) .. " was admin revived!")
+        TriggerServerEvent("DeathScript:AdminReturn", GetPlayerName(target) .. " was admin revived!")
     else
         ShowNotification( '~r~Player is alive' )
     end
 end)
 
-AddEventHandler("DeathScript:AdminRespawn", function(src)
-    local ped = GetPlayerPed( src )
+AddEventHandler("DeathScript:AdminRespawn", function( target )
+    local ped = GetPlayerPed( target )
     if IsEntityDead( ped ) then
-        respawnPed(ped, spawnPoints[math.random(1,#spawnPoints)])
+        respawnPed( ped, spawnPoints[ math.random( 1, #spawnPoints) ] )
         resetTimers()
         ShowNotification( '~g~You were admin respawned' )
-        TriggerServerEvent("DeathScript:AdminReturn", GetPlayerName(src) .. " was admin respawned!")
+        TriggerServerEvent("DeathScript:AdminReturn", GetPlayerName( target ) .. " was admin respawned!")
 
     else
         ShowNotification( '~r~Player is alive' )
     end
 end)
 
- AddEventHandler("DeathScript:ShowNotification", function(message)
+ AddEventHandler("DeathScript:ShowNotification", function( message )
     ShowNotification(message)
  end)
 
@@ -137,4 +137,4 @@ end)
     respawnTime = 120
     reviveAllowed = false
     reviveTime = 240
- end
+end

@@ -1,7 +1,6 @@
 ------ MADE BY MAX F. ------
 --FOR JUSTICE COMMUNITY RP--
 
-
 RegisterServerEvent('DeathScript:AdminReturn')
 
 AddEventHandler('DeathScript:AdminReturn', function(msg)
@@ -15,9 +14,9 @@ end, false)
 
 RegisterCommand('respawn', function(source, args, rawCommand)
     TriggerClientEvent('DeathScript:Respawn', source) 
- end, false)
+end, false)
 
- RegisterCommand('adrev', function(source, args, rawCommand)
+RegisterCommand('adrev', function(source, args, rawCommand)
     local target = tonumber( args[1] )
     if target then
         if GetPlayerGuid( target ) then
@@ -30,7 +29,7 @@ RegisterCommand('respawn', function(source, args, rawCommand)
     end 
 end, true)
 
- RegisterCommand('adres', function(source, args, rawCommand)
+RegisterCommand('adres', function(source, args, rawCommand)
     local target = tonumber( args[1] )
     if target then
         if GetPlayerGuid( target ) then
@@ -41,4 +40,4 @@ end, true)
     else
         TriggerClientEvent('DeathScript:AdminRespawn', source) 
     end
- end, true)
+end, true)
