@@ -90,7 +90,7 @@ Citizen.CreateThread(function()
 
     while true do
         Citizen.Wait(5000)
-        local ped = GetPlayerPed( -1 )
+        local ped = PlayerPedId()
 
         if DeathScriptToggle then
 
@@ -122,31 +122,7 @@ Citizen.CreateThread(function()
 
 				ShowNotification(  respawnMessage .. '\n' .. reviveMessage )
 
-				AddEventHandler("DeathScript:Revive", function( src )
-					if IsEntityDead( ped ) then
-						if ReviveAllowed then
-							revivePed( ped )
-							resetTimers()
-						else
-							ShowNotification("~r~" .. ReviveTime .. ' seconds remaining until revive!')
-						end
-					else
-						ShowNotification("~g~You're alive!")
-					end
-				end)
-
-				AddEventHandler("DeathScript:Respawn", function( src )
-					if IsEntityDead( ped ) then
-						if RespawnAllowed then
-							respawnPed( ped, spawnPoints[math.random(1,#spawnPoints)] )
-							resetTimers()
-						else
-							ShowNotification("~r~" .. RespawnTime .. ' seconds remaining until respawn!')
-						end
-					else
-						ShowNotification("~g~You're alive!")
-					end
-				end)
+				
             end
 		else 
 			respawnPed( ped )
@@ -158,6 +134,37 @@ end)
 --------------------------------------------------
 -----------------EVENT  HANDLERS------------------
 --------------------------------------------------
+
+AddEventHandler("DeathScript:Revive", function(adrev)
+	local ped = PlayerPedId()
+	if adrev then ReviveAllowed = true end
+	
+	if GetEntityHealth( ped ) <= 1 then --if you are dead
+		if ReviveAllowed then -- if timer is complete allow revive --
+			revivePed( ped )
+			resetTimers()
+		else
+			ShowNotification("~r~" .. ReviveTime .. ' seconds remaining until revive!')
+		end
+	else
+		ShowNotification("~g~You're alive!")
+	end
+end)
+
+AddEventHandler("DeathScript:Respawn", function( adrev )
+	local ped = PlayerPedId()
+	if adrev then RespawnAllowed = true end
+	if GetEntityHealth( ped ) <= 1 then
+		if RespawnAllowed then
+			respawnPed( ped, spawnPoints[math.random(1,#spawnPoints)] )
+			resetTimers()
+		else
+			ShowNotification("~r~" .. RespawnTime .. ' seconds remaining until respawn!')
+		end
+	else
+		ShowNotification("~g~You're alive!")
+	end
+end)
 
 AddEventHandler('DeathScript:Toggle', function( src )
 	DeathScriptToggle = not DeathScriptToggle
