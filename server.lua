@@ -35,7 +35,13 @@ RegisterCommand('respawn', function(source, args, rawCommand)
     TriggerClientEvent('DeathScript:Respawn', source) 
 end, false)
 
+RegisterCommand('adrev', function(source, args, rawCommand)
+    TriggerClientEvent('DeathScript:Revive', source, true) 
+ end, true)
 
+ RegisterCommand('adres', function(source, args, rawCommand)
+    TriggerClientEvent('DeathScript:Respawn', source, true) 
+ end, true)
 --------------------------------------------------
 ---------------REGISTERING  COMMAND---------------
 --------------------------------------------------
