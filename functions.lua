@@ -1,5 +1,6 @@
 ------ MADE BY MAX F. ------
 --FOR JUSTICE COMMUNITY RP--
+----------------------------
 
 function ShowNotification(message)
     SetNotificationTextEntry("STRING")
@@ -18,7 +19,7 @@ function respawnPed(ped, coords)
     resetTimers()
 end
 
-function revivePed(message)
+function revivePed(ped)
     NetworkResurrectLocalPlayer(GetEntityCoords(ped, true), true, true, false)
     SetPlayerInvincible(ped, false)
     ClearPedBloodDamage(ped)
@@ -30,3 +31,4 @@ function Alert(message)
     AddTextComponentString(message)
     DisplayHelpTextFromStringLable(0, 0, 1, -1)
 end
+
