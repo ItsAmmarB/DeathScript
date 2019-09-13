@@ -2,20 +2,6 @@
 --FOR JUSTICE COMMUNITY RP--
 ----------------------------
 
-
---1) detect when ped died
---2) detect when command is triggered
---3) calculate remaining time
---4) declare a Revive//Respawn Allow variable for respawn function
---5) call an external function to avoid conflicting
-
-
---------------------------------------------------------------------
-------------------CODE STARTS FROM UNDER THIS LINE------------------
---------------------------------------------------------------------
---VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV--
-
-
 --------------------------------------------------
 ----------------STOPS AUTO RESPAWN----------------
 --------------------------------------------------
@@ -25,7 +11,6 @@ AddEventHandler('onClientMapStart', function()
 	Citizen.Wait(3000)
 	exports.spawnmanager:setAutoSpawn(false)
 end)
-
 
 
 --------------------------------------------------
@@ -39,6 +24,7 @@ RegisterNetEvent("DeathScript:AdminRespawn")
 RegisterNetEvent("DeathScript:SetReviveTime")
 RegisterNetEvent("DeathScript:SetRespawnTime")
 RegisterNetEvent("DeathScript:Toggle")
+RegisterNetEvent("DeathScript:ShowNotification")
 
 
 
@@ -92,9 +78,9 @@ Citizen.CreateThread(function()
         Citizen.Wait(5000)
         local ped = PlayerPedId()
 
-        if DeathScriptToggle then
+		if IsEntityDead( ped ) then
 
-            if IsEntityDead( ped ) then
+			if DeathScriptToggle then
 
                 DeathTime = GetGameTimer()
 
@@ -122,10 +108,9 @@ Citizen.CreateThread(function()
 
 				ShowNotification(  respawnMessage .. '\n' .. reviveMessage )
 
-				
-            end
-		else 
-			respawnPed( ped )
+			else 
+				respawnPed( ped, spawnPoints[math.random(1,#spawnPoints)]  )
+			end	
 		end
 	end
 end)
@@ -135,7 +120,7 @@ end)
 -----------------EVENT  HANDLERS------------------
 --------------------------------------------------
 
-AddEventHandler("DeathScript:Revive", function(adrev)
+AddEventHandler("DeathScript:Revive", function( adrev )
 	local ped = PlayerPedId()
 	if adrev then ReviveAllowed = true end
 	
@@ -151,9 +136,9 @@ AddEventHandler("DeathScript:Revive", function(adrev)
 	end
 end)
 
-AddEventHandler("DeathScript:Respawn", function( adrev )
+AddEventHandler("DeathScript:Respawn", function( adres )
 	local ped = PlayerPedId()
-	if adrev then RespawnAllowed = true end
+	if adres then RespawnAllowed = true end
 	if GetEntityHealth( ped ) <= 1 then
 		if RespawnAllowed then
 			respawnPed( ped, spawnPoints[math.random(1,#spawnPoints)] )
@@ -166,7 +151,7 @@ AddEventHandler("DeathScript:Respawn", function( adrev )
 	end
 end)
 
-AddEventHandler('DeathScript:Toggle', function( src )
+AddEventHandler('DeathScript:Toggle', function()
 	DeathScriptToggle = not DeathScriptToggle
 	if (DeathScriptToggle) then
 		ShowNotification("~b~DeathScript was enabled")
@@ -175,7 +160,7 @@ AddEventHandler('DeathScript:Toggle', function( src )
 	end
 end)
 
-AddEventHandler('DeathScript:SetReviveTime', function( src, time )
+AddEventHandler('DeathScript:SetReviveTime', function( time )
 	local newTime = tonumber( time )
 	if newTime then
 		OriginalReviveTime = newTime
@@ -185,7 +170,7 @@ AddEventHandler('DeathScript:SetReviveTime', function( src, time )
 	end
 end)
 
-AddEventHandler('DeathScript:SetRespawnTime', function( src, time )
+AddEventHandler('DeathScript:SetRespawnTime', function( time )
 	local newTime = tonumber( time )
 	if newTime then
 		OriginalRespawnTime = newTime
@@ -195,24 +180,8 @@ AddEventHandler('DeathScript:SetRespawnTime', function( src, time )
 	end
 end)
 
-AddEventHandler('DeathScript:AdminRevive', function( src, time )
-	local newTime = tonumber( time )
-	if newTime then
-		OriginalRespawnTime = newTime
-		ShowNotification("~B~ Respawn time has been set to " .. newTime)
-	else
-		ShowNotification("~r~Invalid time entered")
-	end
-end)
-
-AddEventHandler('DeathScript:AdminRespawn', function( src, time )
-	local newTime = tonumber( time )
-	if newTime then
-		OriginalRespawnTime = newTime
-		ShowNotification("~B~ Respawn time has been set to " .. newTime)
-	else
-		ShowNotification("~r~Invalid time entered")
-	end
+AddEventHandler('DeathScript:ShowNotification', function( str )
+	ShowNotification( str )
 end)
 
 
@@ -226,3 +195,5 @@ function resetTimers()
 	ReviveAllowed = false
 	RespawnAllowed = false
 end
+
+
