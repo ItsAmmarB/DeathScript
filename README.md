@@ -13,5 +13,14 @@ If you wish to change the waiting time, go to the file with name of `Client.lua`
 - line 11 `local respawnTime = 120` for the respawn waiting time.
 - line 12 `local reviveTime = 240` for the revive waiting time.
 
+# Commands:
+ - revive  |  Everyone is allowed to use it.
+ - respawn  |  Everyone is allowed to use it.
+ - adrev  |  permission: ``adrev``
+ - adres  |  permission: ``adres``
+ - setrespawntimer  |  permission: ``setrespawntimer``
+ - setrevivetimer  |  permission: ``setrevivetimer``
+ - deathtoggle  |  permission: ``deathtoggle``
+
 # Usage:
 You may use and edit the script as you wish but do not redistribute it.
