@@ -1,6 +1,5 @@
------- MADE BY MAX F. ------
---FOR JUSTICE COMMUNITY RP--
-----------------------------
+------ MADE BY Ammar B. ------
+------------------------------
 
 function ShowNotification(message)
     SetNotificationTextEntry("STRING")
