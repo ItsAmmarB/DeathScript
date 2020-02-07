@@ -24,6 +24,7 @@ RegisterNetEvent("DeathScript:SetReviveTime")
 RegisterNetEvent("DeathScript:SetRespawnTime")
 RegisterNetEvent("DeathScript:Toggle")
 RegisterNetEvent("DeathScript:ShowNotification")
+RegisterNetEvent("DeathScript:IsPlayerDead")
 
 
 
@@ -119,34 +120,63 @@ end)
 -----------------EVENT  HANDLERS------------------
 --------------------------------------------------
 
-AddEventHandler("DeathScript:Revive", function( adrev )
+AddEventHandler("DeathScript:Revive", function( adrev, admin, all)
 	local ped = PlayerPedId()
 	if adrev then ReviveAllowed = true end
-	
+	if all then
+		revivePed( ped )
+		resetTimers()
+		ShowNotification("~g~You have been revived by an admin!")
+		return;
+	end
 	if GetEntityHealth( ped ) <= 1 then --if you are dead
 		if ReviveAllowed then -- if timer is complete allow revive --
+
 			revivePed( ped )
 			resetTimers()
+			if adrev then
+				ShowNotification("~g~You have been revived by an admin!")
+				TriggerServerEvent('DeathScript:AdminReturn', '~g~Player have been revived', admin)
+			end
 		else
 			ShowNotification("~r~" .. ReviveTime .. ' seconds remaining until revive!')
 		end
 	else
-		ShowNotification("~g~You're alive!")
+		if adrev then
+			TriggerServerEvent('DeathScript:AdminReturn', '~r~Player is alive', admin)
+		else
+			ShowNotification("~g~You're alive!")
+		end
 	end
 end)
 
-AddEventHandler("DeathScript:Respawn", function( adres )
+AddEventHandler("DeathScript:Respawn", function( adres, admin, all)
 	local ped = PlayerPedId()
 	if adres then RespawnAllowed = true end
-	if GetEntityHealth( ped ) <= 1 then
-		if RespawnAllowed then
+	if all then
+		respawnPed( ped, spawnPoints[math.random(1,#spawnPoints)] )
+		resetTimers()
+		ShowNotification("~g~You have been respawned by an admin!")
+		return;
+	end
+	if GetEntityHealth( ped ) <= 1 then --if you are dead
+		if RespawnAllowed then -- if timer is complete allow revive --
+			
 			respawnPed( ped, spawnPoints[math.random(1,#spawnPoints)] )
 			resetTimers()
+			if adres then
+				ShowNotification("~g~You have been respawned by an admin!")
+				TriggerServerEvent('DeathScript:AdminReturn', '~g~Player have been respawned', admin)
+			end
 		else
 			ShowNotification("~r~" .. RespawnTime .. ' seconds remaining until respawn!')
 		end
 	else
-		ShowNotification("~g~You're alive!")
+		if adres then
+			TriggerServerEvent('DeathScript:AdminReturn', '~r~Player is alive', admin)
+		else
+			ShowNotification("~g~You're alive!")
+		end
 	end
 end)
 
@@ -156,26 +186,6 @@ AddEventHandler('DeathScript:Toggle', function()
 		ShowNotification("~b~DeathScript was enabled")
 	else
 		ShowNotification("~r~DeathScript was disabled")
-	end
-end)
-
-AddEventHandler('DeathScript:SetReviveTime', function( time )
-	local newTime = tonumber( time )
-	if newTime then
-		OriginalReviveTime = newTime
-		ShowNotification("~B~ Revive time has been set to " .. newTime)
-	else
-		ShowNotification("~r~Invalid time entered")
-	end
-end)
-
-AddEventHandler('DeathScript:SetRespawnTime', function( time )
-	local newTime = tonumber( time )
-	if newTime then
-		OriginalRespawnTime = newTime
-		ShowNotification("~B~ Respawn time has been set to " .. newTime)
-	else
-		ShowNotification("~r~Invalid time entered")
 	end
 end)
 

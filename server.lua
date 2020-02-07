@@ -35,52 +35,52 @@ end, false)
 --------------------------------------------------
 
 RegisterCommand('adrev', function(source, args, rawCommand)
-    local target = tonumber( args[1] )
-    if target then
-        TriggerClientEvent('DeathScript:Revive', target, true)
-        TriggerClientEvent("DeathScript:ShowNotification", target, "~g~You have been revived by an admin")
+    if #args == 1 then
+        if tonumber(args[1]) then
+            local target = tonumber(args[1])
+            if GetPlayerName(target) then
+                TriggerClientEvent('DeathScript:Revive', target, true, source, false)
+            else
+                TriggerClientEvent("DeathScript:ShowNotification", source, "~r~Invalid ID~n~/adrev ID")
+            end
+        else
+            TriggerClientEvent("DeathScript:ShowNotification", source, "~r~Player ID must be a number~n~/adrev ID")
+        end
     else
         TriggerClientEvent('DeathScript:Revive', source, true) 
     end
  end, true)
 
  RegisterCommand('adrevall', function(source, args, rawCommand)
-    TriggerClientEvent('DeathScript:Revive', -1, true)
-    TriggerClientEvent("DeathScript:ShowNotification", -1, "~g~You have been revived by an admin")
+    TriggerClientEvent('DeathScript:Revive', -1, true, source, true)
  end, true)
 
 RegisterCommand('adres', function(source, args, rawCommand)
-local target = tonumber( args[1] )
-if target then
-    TriggerClientEvent('DeathScript:Respawn', target, true) 
-    TriggerClientEvent("DeathScript:ShowNotification", target, "~g~You have respawned by an admin")
-else
-    TriggerClientEvent('DeathScript:Respawn', source, true) 
-end
+    if #args == 1 then
+        if tonumber(args[1]) then
+            local target = tonumber(args[1])
+            if GetPlayerName(target) then
+                TriggerClientEvent('DeathScript:Respawn', target, true, source, false)
+            else
+                TriggerClientEvent("DeathScript:ShowNotification", source, "~r~Invalid ID~n~/adres ID")
+            end
+        else
+            TriggerClientEvent("DeathScript:ShowNotification", source, "~r~Player ID must be a number~n~/adres ID")
+        end
+    else
+        TriggerClientEvent('DeathScript:Respawn', source, true) 
+    end
 end, true)
 
 RegisterCommand('adresall', function(source, args, rawCommand)
-    TriggerClientEvent('DeathScript:Respawn', -1, true) 
-    TriggerClientEvent("DeathScript:ShowNotification", -1, "~g~You have respawned by an admin")
-end, true)
-
-
-RegisterCommand('setrespawntime', function(source, args, rawCommand)
-    if args[1] then
-        TriggerClientEvent('DeathScript:SetRespawnTime', -1, args[1])
-    else
-        TriggerClientEvent("DeathScript:ShowNotification", source, "~r~You need to specify the respawn time!")
-    end
- end, true)
-
-RegisterCommand('setrevivetime', function(source, args, rawCommand)
-if args[1] then
-    TriggerClientEvent('DeathScript:SetReviveime', -1, args[1])
-else
-    TriggerClientEvent("DeathScript:ShowNotification", source, "~r~You need to specify the revive time!")
-end
+    TriggerClientEvent('DeathScript:Respawn', -1, true, source, true)
 end, true)
 
 RegisterCommand('deathtoggle', function(source, args, rawCommand)
     TriggerClientEvent('DeathScript:Toggle', -1, args[1])
 end, true)
+
+
+AddEventHandler('DeathScript:AdminReturn', function(msg, id)
+    TriggerClientEvent("DeathScript:ShowNotification", source, msg)
+end)
