@@ -46,20 +46,30 @@ RegisterCommand('adrev', function(source, args, rawCommand)
     local target = tonumber( args[1] )
     if target then
         TriggerClientEvent('DeathScript:Revive', target, true)
-        TriggerClientEvent("DeathScript:ShowNotification", target, "~g~You were admin revived")
+        TriggerClientEvent("DeathScript:ShowNotification", target, "~g~You have been revived by an admin")
     else
         TriggerClientEvent('DeathScript:Revive', source, true) 
     end
+ end, true)
+
+ RegisterCommand('adrevall', function(source, args, rawCommand)
+    TriggerClientEvent('DeathScript:Revive', -1, true)
+    TriggerClientEvent("DeathScript:ShowNotification", -1, "~g~You have been revived by an admin")
  end, true)
 
 RegisterCommand('adres', function(source, args, rawCommand)
 local target = tonumber( args[1] )
 if target then
     TriggerClientEvent('DeathScript:Respawn', target, true) 
-    TriggerClientEvent("DeathScript:ShowNotification", target, "~g~You were admin respawned")
+    TriggerClientEvent("DeathScript:ShowNotification", target, "~g~You have respawned by an admin")
 else
     TriggerClientEvent('DeathScript:Respawn', source, true) 
 end
+end, true)
+
+RegisterCommand('adresall', function(source, args, rawCommand)
+    TriggerClientEvent('DeathScript:Respawn', -1, true) 
+    TriggerClientEvent("DeathScript:ShowNotification", -1, "~g~You have respawned by an admin")
 end, true)
 
 
