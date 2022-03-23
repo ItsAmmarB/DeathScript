@@ -1,26 +1,111 @@
-# FiveM-DeathScript
-A script that gives you revive and respawn commands to aid your RP scenario. (Adrev and Adres for Admins) - Standalone Script
+# [FiveM] DeathScript 
+A lightweight script that helps aid player with their roleplay by providing more roleplaying opportunities and providing staff a handful of very useful command 
 
-# Installation:
+---
 
-1) Download the files and extract the folder from the zip file.
-2) Copy the folder and go to your resources folder in your server's root and paste it there.
-3) Go to `Server.cfg` and start the resource by adding `start FiveM-DeathScript`
-4) Give you admins or whoever you want permissions to admin revive `command.adrev` and respawn `command.adres`.
+### Features
+- Disables auto spawn while enable.
+- lightweight and quick
+- Mappable keys for a quick self-revive or self-respawn. [Revive & Respawn]
+- Commands to revive and respawn everyone.
+- Standalone and compatible with most resources.
+- Exports for external use. 
+
+---
+
+ ### Installation
+Download the latest release, extract the resource from the `.zip`, put the resource in the resources folder, add `start StanceModifier` to your `server.cfg`
+
+---
+
+### Controls & Commands
+- Revive 
+    - Command: `/revive`
+    - Keybind: `unbinded`
+    - Wait Time: `240 seconds`
+- Respawn 
+    - Command: `/respawn`
+    - Keybind: `unbinded`
+    - Wait Time: `120 seconds`
+- Admin Revive 
+    - Command: `/adrev [ID?]`
+    - AcePermission: `commands.adrev`
+- Admin Respawn 
+    - Command: `/adres [ID?]`
+    - AcePermission: `commands.adres`
+- Admin Revive All 
+    - Command: `/adrevall`
+    - AcePermission: `commands.adrevall`
+- Admin Respawn All 
+    - Command: `/adresall`
+    - AcePermission: `commands.adresall`
+- Toggle DeathScript 
+    - Command: `/toggleds`
+    - AcePermission: `commands.toggleds`
+
+Any player can set their own keybind by going to the `pause menu > setting > keybinds > FiveM`
+
+---
 
 # Timers:
-If you wish to change the waiting time, go to the file with name of `Client.lua`, then change the numbers on:
-- line 36 `local OriginalRespawnTime = 120` for the respawn waiting time.
-- line 35 `local OriginalReviveTime = 240` for the revive waiting time.
+If you wish to change the waiting time, go to the `sh_config.js` file and you can find a variable called `WaitTime` under both ther `Revive` & `Respawn` commands:
+- line 15 for the respawn waiting time.
+```js
+  WaitTime: 240, // The default wait time the player has to wait before they can use the command // TIME IN SECONDS \\
+``` 
+- line 25 for the revive waiting time.
+```js
+  WaitTime: 120, // The default wait time the player has to wait before they can use the command // TIME IN SECONDS \\
+``` 
 
-# Commands:
- - revive  |  Everyone is allowed to use it.
- - respawn  |  Everyone is allowed to use it.
- - adrev  |  permission: ``adrev``
- - adres  |  permission: ``adres``
- - adrevall  |  permission: ``adrevall``
- - adresall  |  permission: ``adresall``
- - deathtoggle  |  permission: ``deathtoggle``
+---
 
-# Usage:
-You may use and edit the script as you wish but do not redistribute it.
+### Exports
+```js
+// Client Side
+
+  // Ex; exports.DeathScript.Revive()
+    exports('Revive', () => RevivePed(PlayerPedId())) 
+  // Ex; exports.DeathScript.Respawn()
+    exports('Respawn', () => RespawnPed(PlayerPedId())) 
+```
+
+
+```js
+// Server Side
+
+    // Ex; exports.DeathScript.Revive(2) /|\ exports.DeathScript.Revive('All')
+    exports('Revive', (PlayerId) => {
+        if (!isNaN(Player)) {
+            const Ped = GetPlayerPed(PlayerId);
+            if(GetEntityHealth(Ped) <= 1) {
+                emitNet('DeathScript:Admin:Revive', PlayerId, 0, false);
+            }
+        } else if (PlayerId.toLowerCase() === 'all') {
+            emitNet('DeathScript:Admin:Revive', -1, 0, true);
+        }
+    })
+    
+    // Ex; exports.DeathScript.Respawn(2) /|\ exports.DeathScript.Respawn('All')
+    exports('Respawn', (PlayerId) => {
+        if (!isNaN(Player)) {
+            const Ped = GetPlayerPed(PlayerId);
+            if(GetEntityHealth(Ped) <= 1) {
+                emitNet('DeathScript:Admin:Respawn', PlayerId, 0, false);
+            }
+        } else if (PlayerId.toLowerCase() === 'all') {
+            emitNet('DeathScript:Admin:Respawn', -1, 0, true);
+        }
+    })
+```
+
+---
+
+### Issues
+-	None :p
+
+**If you stumbled upon an issue or a bug; make sure to report it by creating an issue card**
+
+---
+
+ > **License:** Do what ever you want just don't claim it's yours.
