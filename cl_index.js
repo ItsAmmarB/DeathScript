@@ -149,7 +149,7 @@ onNet('DeathScript:Admin:Respawn', (Moderator, Everyone = false) => {
  */
 setTick(async () => {
     if (!Config.Enabled) return;
-    
+
     const Ped = PlayerPedId();
     if (IsEntityDead(Ped) && GetEntityHealth(Ped) <= 1) {
         const CurrentTimestamp = Date.now();
