@@ -35,9 +35,11 @@ Download the latest release, extract the resource from the `.zip`, put the resou
     - Wait Time: `120 seconds`
 - Admin Revive 
     - Command: `/adrev [ID?]`
+    - Keybind: `unbinded`
     - AcePermission: `commands.adrev`
 - Admin Respawn 
     - Command: `/adres [ID?]`
+    - Keybind: `unbinded`
     - AcePermission: `commands.adres`
 - Admin Revive All 
     - Command: `/adrevall`
@@ -54,15 +56,20 @@ Any player can set their own keybind by going to the `pause menu > setting > key
 ---
 
 # Timers:
-If you wish to change the waiting time, go to the `sh_config.js` file and you can find a variable called `WaitTime` under both ther `Revive` & `Respawn` commands:
-- line 15 for the respawn waiting time.
-```js
+If you wish to change the waiting time, go to the `sh_config.js` file and you can find a variable called `WaitTime` under both the `Revive` & `Respawn` commands:
+- line 11 for the revive waiting time.
+```javascript
   WaitTime: 240, // The default wait time the player has to wait before they can use the command // TIME IN SECONDS \\
 ``` 
-- line 25 for the revive waiting time.
-```js
+- line 26 for the respawn waiting time.
+```javascript
   WaitTime: 120, // The default wait time the player has to wait before they can use the command // TIME IN SECONDS \\
 ``` 
+- line 27 for the auto respawn waiting time. _(when the script is toggled off)_
+```javascript
+  AutoRespawnTimer: 10, // this will be the wait time for auto respawn when the script is toggled off using the command or in line No.2
+``` 
+keep in mind, setting a lower number could decrease the effectiveness of its purpose, and setting a higher number could make players bored.
 
 ---
 
