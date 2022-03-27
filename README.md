@@ -3,6 +3,12 @@ A lightweight script that helps aid player with their roleplay by providing more
 
 ---
 
+### Contributors
+- [eurofra1d](https://github.com/eurofra1d)
+- [ItsAmmarB](https://github.com/ItsAmmarB)
+
+---
+
 ### Features
 - Disables auto spawn while enable.
 - lightweight and quick

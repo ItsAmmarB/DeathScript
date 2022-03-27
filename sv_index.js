@@ -199,7 +199,7 @@ const SendMessage = (Recipient, MessageArgs) => Recipient === 0 ? console.log(Me
 exports('Revive', (PlayerId) => {
     if (!isNaN(Player)) {
         const Ped = GetPlayerPed(PlayerId);
-        if(GetEntityHealth(Ped) <= 1) {
+        if (GetEntityHealth(Ped) <= 1) {
             emitNet('DeathScript:Admin:Revive', PlayerId, 0, false);
         }
     } else if (PlayerId.toLowerCase() === 'all') {
@@ -210,7 +210,7 @@ exports('Revive', (PlayerId) => {
 exports('Respawn', (PlayerId) => {
     if (!isNaN(Player)) {
         const Ped = GetPlayerPed(PlayerId);
-        if(GetEntityHealth(Ped) <= 1) {
+        if (GetEntityHealth(Ped) <= 1) {
             emitNet('DeathScript:Admin:Respawn', PlayerId, 0, false);
         }
     } else if (PlayerId.toLowerCase() === 'all') {
