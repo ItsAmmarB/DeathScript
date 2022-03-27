@@ -51,10 +51,10 @@ if (Config.Commands.ToggleDS.Enabled) emit('chat:addSuggestion', Config.Commands
 /**
  * Registering keymappings AKA; Keybinds, for player customizability and quick command usage
  */
-RegisterKeyMapping('revive', 'Revive', 'keyboard', '');
-RegisterKeyMapping('respawn', 'Respawn', 'keyboard', '');
-RegisterKeyMapping('=-+_+-=Death-_._-Script=-+_+-=Key-_._-bind=-+_+-=AdRev', 'Admin Revive', 'keyboard', '');
-RegisterKeyMapping('=-+_+-=Death-_._-Script=-+_+-=Key-_._-bind=-+_+-=AdRes', 'Admin Respawn', 'keyboard', '');
+RegisterKeyMapping('revive', 'Revive', 'keyboard', Config.Commands.Revive.Keybind.DefaultKeybind);
+RegisterKeyMapping('respawn', 'Respawn', 'keyboard', Config.Commands.Revive.Keybind.DefaultKeybind);
+RegisterKeyMapping('=-+_+-=Death-_._-Script=-+_+-=Key-_._-bind=-+_+-=AdRev', 'Admin Revive', 'keyboard', Config.Commands.AdRev.Keybind.DefaultKeybind);
+RegisterKeyMapping('=-+_+-=Death-_._-Script=-+_+-=Key-_._-bind=-+_+-=AdRes', 'Admin Respawn', 'keyboard', Config.Commands.AdRes.Keybind.DefaultKeybind);
 
 /**
  * Revive command/Keybind
