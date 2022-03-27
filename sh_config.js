@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 const Config = {
     Enabled: true, // Weather is the resource enabled by default or has to be toggle on manually using the "ToggleDS" command.
     Commands: {
@@ -9,8 +10,8 @@ const Config = {
             },
             WaitTime: 240, // The default wait time the player has to wait before they can use the command // TIME IN SECONDS \\
             Messages: { // The messages use in the command, I don't think you have to touch anything, but; you do you
-                Revive: ['^3(INFO)^0', ' ^3You were revived.'],
-                Alive: ['^3(INFO)^0', ' ^3You are alive.'],
+                Revive: ['^1(INFO)^0', ' ^4You were revived.^0'],
+                Alive: ['^1(INFO)^0', ' ^1You are alive.^0']
             },
             Suggestion: { // The suggestion or the text box that shows when you type the command, it will help people who aren't familiar with the command's usage, and I doubt you'd need to change anything here
                 name: '/revive', help: 'Revive yourself after revive timer is out.'
@@ -23,9 +24,10 @@ const Config = {
                 DefaultKeybind: '' // The default keybind, every play can customize it to their own preference
             },
             WaitTime: 120, // The default wait time the player has to wait before they can use the command // TIME IN SECONDS \\
+            AutoRespawnTimer: 10, // this will be the wait time for auto respawn when the script is toggled off using the command or in line No.2
             Messages: { // The messages use in the command, I don't think you have to touch anything, but; you do you
-                Respawn: ['^3(INFO)^0', ' ^3You respawned.'],
-                Alive: ['^3(INFO)^0', ' ^3You are alive.'],
+                Respawn: ['^1(INFO)^0', ' ^4You respawned.^0'],
+                Alive: ['^1(INFO)^0', ' ^1You are alive.^0']
             },
             Suggestion: { // The suggestion or the text box that shows when you type the command, it will help people who aren't familiar with the command's usage, and I doubt you'd need to change anything here
                 name: '/respawn', help: 'Respawn yourself after respawn timer is out.'
@@ -33,22 +35,24 @@ const Config = {
         },
         AdRev: {
             Enabled: true, // Weather is the command enabled, cannot be toggle from in-game
-            PermissionReqired: true, // self-explanatory, AcePermissions by default, permission node is "command.AdRev" 
+            PermissionReqired: true, // self-explanatory, AcePermissions by default, permission node is "command.AdRev"
             Keybind: {
                 Enabled: true, // Weather the command's keybind is enabled or not, cannot be toggle from in-game
                 DefaultKeybind: '' // The default keybind, every play can customize it to their own preference
             },
             Messages: { // The messages use in the command, I don't think you have to touch anything, but; you do you
                 ToPlayer: { // The messages directed to the player targeted by the staff member or the player who is using the command
-                    Revived: ['^3(INFO)^0', ' ^3You have been revived by a staff member.'],
+                    Revived: ['^1(INFO)^0', ' ^4You have been revived by a staff member.^0']
                 },
                 ToStaff: { // The messages directed to the staff or the player who is using the command
-                    Revived: ['^3(INFO)^0', ' ^3Player has been revived.'],
-                    Alive: ['^3(INFO)^0', '  ^3Player is alive.'],
-                    NotFound: ['^1(INFO)^0', ' ^1 Player was not found.'],
-                    IdNumber: ['^1(INFO)^0', ' ^1 Player ID must be a number.'],
-                    RevivedAll: ['^3(INFO)^0', ' ^3All dead players were revived.'],
-                    Usage: ['^1(INFO)^0', ' ^1Usage: /adrev [PLAYER ID]']
+                    Revived: ['^1(INFO)^0', ' ^4Player has been revived.^0'],
+                    Alive: ['^1(INFO)^0', '  ^0Player is alive.^0'],
+                    YouAlive: ['^1(INFO)^0', '  ^0You are alive!^0'],
+                    NotFound: ['^1(INFO)^0', ' ^1Player was not found.^0'],
+                    IdNumber: ['^1(INFO)^0', ' ^1Player ID must be a number.^0'],
+                    NoPermission: ['^1(INFO)^0', ' ^1Insufficient  permissions^0'],
+                    Cooldown: ['^1(INFO)^0', '^0A little too fast over there!^0'],
+                    Usage: ['^1(INFO)^0', ' ^0Usage: /adrev [PLAYER ID]^0']
                 }
             },
             Suggestion: { // The suggestion or the text box that shows when you type the command, it will help people who aren't familiar with the command's usage, and I doubt you'd need to change anything here
@@ -60,22 +64,24 @@ const Config = {
         },
         AdRes: {
             Enabled: true, // Weather is the command enabled, cannot be toggle from in-game
-            PermissionReqired: true, // self-explanatory, AcePermissions by default, permission node is "command.AdRes" 
+            PermissionReqired: true, // self-explanatory, AcePermissions by default, permission node is "command.AdRes"
             Keybind: {
                 Enabled: true, // Weather the command's keybind is enabled or not, cannot be toggle from in-game
                 DefaultKeybind: '' // The default keybind, every play can customize it to their own preference
             },
             Messages: { // The messages use in the command, I don't think you have to touch anything, but; you do you
                 ToPlayer: { // The messages directed to the player targeted by the staff member or the player who is using the command
-                    Respawned: ['^3(INFO)^0', ' ^3You have been respawned by a staff member.'],
+                    Respawned: ['^1(INFO)^0', ' ^4You have been respawned by a staff member.^0']
                 },
                 ToStaff: { // The messages directed to the staff or the player who is using the command
-                    Respawned: ['^3(INFO)^0', ' ^3Player  has been respawned.'],
-                    Alive: ['^3(INFO)^0', ' ^3Player is alive.'],
-                    NotFound: ['^1(INFO)^0', ' ^1 Player was not found.'],
-                    IdNumber: ['^1(INFO)^0', ' ^1 Player ID must be a number.'],
-                    RespawnedAll: ['^3(INFO)^0', ' ^3All dead players were respawned.'],
-                    Usage: ['^1(INFO)^0', ' ^1Usage: /adres [PLAYER ID]']
+                    Respawned: ['^1(INFO)^0', ' ^4Player  has been respawned.^0'],
+                    Alive: ['^1(INFO)^0', ' ^0Player is alive.^0'],
+                    YouAlive: ['^1(INFO)^0', ' ^0You are alive!^0'],
+                    NotFound: ['^1(INFO)^0', ' ^1Player was not found.^0'],
+                    IdNumber: ['^1(INFO)^0', ' ^1Player ID must be a number.^0'],
+                    NoPermission: ['^1(INFO)^0', ' ^1Insufficient  permissions^0'],
+                    Cooldown: ['^1(INFO)^0', '^0A little too fast over there!^0'],
+                    Usage: ['^1(INFO)^0', ' ^0Usage: /adres [PLAYER ID]^0']
                 }
             },
             Suggestion: { // The suggestion or the text box that shows when you type the command, it will help people who aren't familiar with the command's usage, and I doubt you'd need to change anything here
@@ -87,53 +93,48 @@ const Config = {
         },
         AdRevAll: {
             Enabled: true, // Weather is the command enabled, cannot be toggle from in-game
-            PermissionReqired: true, // self-explanatory, AcePermissions by default, permission node is "command.AdRev" 
-            Keybind: {
-                Enabled: true, // Weather the command's keybind is enabled or not, cannot be toggle from in-game
-                DefaultKeybind: '' // The default keybind, every play can customize it to their own preference
-            },
+            PermissionReqired: true, // self-explanatory, AcePermissions by default, permission node is "command.AdRev"
             Messages: { // The messages use in the command, I don't think you have to touch anything, but; you do you
                 ToPlayer: { // The messages directed to the player targeted by the staff member or the player who is using the command
-                    Revived: ['^3(INFO)^0', ' ^3You have been revived by a staff member.'],
+                    Revived: ['^1(INFO)^0', ' ^4You have been revived by a staff member.^0']
                 },
                 ToStaff: { // The messages directed to the staff or the player who is using the command
-                    Revived: ['^3(INFO)^0', ' ^3All dead players were revived.'],
+                    NoPermission: ['^1(INFO)^0', ' ^1Insufficient  permissions^0'],
+                    Revived: ['^1(INFO)^0', ' ^4All dead players were revived.^0']
                 }
             },
             Suggestion: { // The suggestion or the text box that shows when you type the command, it will help people who aren't familiar with the command's usage, and I doubt you'd need to change anything here
-                name: '/adrevall', help: 'Admin revive everyone instantly.',
+                name: '/adrevall', help: 'Admin revive everyone instantly.'
             }
         },
         AdResAll: {
             Enabled: true, // Weather is the command enabled, cannot be toggle from in-game
-            PermissionReqired: true, // self-explanatory, AcePermissions by default, permission node is "command.AdRes" 
-            Keybind: {
-                Enabled: true, // Weather the command's keybind is enabled or not, cannot be toggle from in-game
-                DefaultKeybind: '' // The default keybind, every play can customize it to their own preference
-            },
+            PermissionReqired: true, // self-explanatory, AcePermissions by default, permission node is "command.AdRes"
             Messages: { // The messages use in the command, I don't think you have to touch anything, but; you do you
                 ToPlayer: { // The messages directed to the player targeted by the staff member or the player who is using the command
-                    Respawned: ['^3(INFO)^0', ' ^3You have been respawned by a staff member.'],
+                    Respawned: ['^1(INFO)^0', ' ^4You have been respawned by a staff member.^0']
                 },
                 ToStaff: { // The messages directed to the staff or the player who is using the command
-                    Respawned: ['^3(INFO)^0', ' ^3All dead players were respawned.'],
+                    NoPermission: ['^1(INFO)^0', ' ^1Insufficient  permissions^0'],
+                    Respawned: ['^1(INFO)^0', ' ^4All dead players were respawned.^0']
                 }
             },
             Suggestion: { // The suggestion or the text box that shows when you type the command, it will help people who aren't familiar with the command's usage, and I doubt you'd need to change anything here
-                name: '/adresall', help: 'Admin respawn everyone instantly.',
+                name: '/adresall', help: 'Admin respawn everyone instantly.'
             }
         },
         ToggleDS: {
             Enabled: true, // Weather is the command enabled, cannot be toggle from in-game
-            PermissionReqired: true, // self-explanatory, AcePermissions by default, permission node is "command.ToggleDS" 
+            PermissionReqired: true, // self-explanatory, AcePermissions by default, permission node is "command.ToggleDS"
             Messages: { // The messages use in the command, I don't think you have to touch anything, but; you do you
-                ToggledOn: ['^1(INFO)^0', ' ^1DeathScript has been toggle on!'],
-                ToggledOff: ['^1(INFO)^0', ' ^1DeathScript has been toggle off!']
+                NoPermission: ['^1(INFO)^0', ' ^1Insufficient  permissions^0'],
+                ToggledOn: ['^1(INFO)^0', ' ^0DeathScript has been toggle on!^0'],
+                ToggledOff: ['^1(INFO)^0', ' ^0DeathScript has been toggle off!^0']
             },
             Suggestion: { // The suggestion or the text box that shows when you type the command, it will help people who aren't familiar with the command's usage, and I doubt you'd need to change anything here
-                name: '/toggleds', help: 'Toggles DeathScript on/off.',
+                name: '/toggleds', help: 'Toggles DeathScript on/off.'
             }
-        },
+        }
     },
 
 
@@ -149,7 +150,7 @@ const Config = {
         [1839.03, 3672.32, 35, 208.24], // Sandy Shores Medical Center
         [-247.07, 6330.2, 33, 227.3] // Paleto Bay Medical Center
     ],
-    Sounds: {// The sounds used in this resource, please no touchy touchy
-        Warning: [-1, 'HACKING_CLICK', 0, 1],
-    },
-}
+    Sounds: { // The sounds used in this resource, please no touchy touchy
+        Warning: [-1, 'HACKING_CLICK', 0, 1]
+    }
+};
