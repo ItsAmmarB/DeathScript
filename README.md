@@ -20,7 +20,7 @@ A lightweight script that helps aid player with their roleplay by providing more
 ---
 
  ### Installation
-Download the latest release, extract the resource from the `.zip`, put the resource in the resources folder, add `start StanceModifier` to your `server.cfg`
+Download the latest release, extract the resource from the `.zip`, put the resource in the resources folder, add `start DeathScript` to your `server.cfg`
 
 ---
 
