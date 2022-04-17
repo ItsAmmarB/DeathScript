@@ -20,7 +20,7 @@ A lightweight script that helps aid player with their roleplay by providing more
 ---
 
  ### Installation
-Download the latest release, extract the resource from the `.zip`, put the resource in the resources folder, add `start DeathScript` to your `server.cfg`
+Download the latest [release](https://github.com/ItsAmmarB/DeathScript/releases), extract the resource from the `.zip`, put the resource in the resources folder and remove the version number from the name, then add `start DeathScript` to your `server.cfg`
 
 ---
 
@@ -28,28 +28,30 @@ Download the latest release, extract the resource from the `.zip`, put the resou
 - Revive 
     - Command: `/revive`
     - Keybind: `unbinded`
-    - Wait Time: `240 seconds`
+    - Wait Time: `240 seconds`    
+    - AcePermission: `Unrestricted`
 - Respawn 
     - Command: `/respawn`
     - Keybind: `unbinded`
     - Wait Time: `120 seconds`
+    - AcePermission: `Unrestricted`
 - Admin Revive 
     - Command: `/adrev [ID?]`
     - Keybind: `unbinded`
-    - AcePermission: `commands.adrev`
+    - AcePermission: `DeathScript.AdRev`
 - Admin Respawn 
     - Command: `/adres [ID?]`
     - Keybind: `unbinded`
-    - AcePermission: `commands.adres`
+    - AcePermission: `DeathScript.AdRes`
 - Admin Revive All 
     - Command: `/adrevall`
-    - AcePermission: `commands.adrevall`
+    - AcePermission: `DeathScript.AdRevAll`
 - Admin Respawn All 
     - Command: `/adresall`
-    - AcePermission: `commands.adresall`
+    - AcePermission: `DeathScript.AdResAll`
 - Toggle DeathScript 
     - Command: `/toggleds`
-    - AcePermission: `commands.toggleds`
+    - AcePermission: `DeathScript.ToggleDS`
 
 Any player can set their own keybind by going to the `pause menu > setting > keybinds > FiveM`
 
