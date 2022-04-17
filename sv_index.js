@@ -16,19 +16,19 @@
  */
 if (Config.Commands.AdRev.Enabled) {
     RegisterCommand('adrev', (source, args) => {
-        if(IsPlayerAceAllowed(source, 'adrev')) {
+        if (IsPlayerAceAllowed(source, 'DeathScript.AdRev')) {
             const Player = args[0] || source;
             if (ValidatePlayer(source, Player, 'AdRev')) {
                 const Ped = GetPlayerPed(Player);
-                if(GetEntityHealth(Ped) > 1) {
-                    if(Player === source) {
+                if (GetEntityHealth(Ped) > 1) {
+                    if (Player === source) {
                         SendMessage(source, Config.Commands.AdRev.Messages.ToStaff.Usage);
                     } else {
                         SendMessage(source, Config.Commands.AdRev.Messages.ToStaff.Alive);
                     }
                 } else {
                     emitNet('DeathScript:Admin:Revive', Player, source, false);
-                    if(Player === source) {
+                    if (Player === source) {
                         SendMessage(source, Config.Commands.AdRev.Messages.ToStaff.Revived);
                     } else {
                         SendMessage(source, Config.Commands.AdRev.Messages.ToStaff.Revived);
@@ -47,19 +47,19 @@ if (Config.Commands.AdRev.Enabled) {
  */
 if (Config.Commands.AdRes.Enabled) {
     RegisterCommand('adres', (source, args) => {
-        if(IsPlayerAceAllowed(source, 'adres')) {
+        if (IsPlayerAceAllowed(source, 'DeathScript.AdRes')) {
             const Player = args[0] || source;
             if (ValidatePlayer(source, Player, 'AdRev')) {
                 const Ped = GetPlayerPed(Player);
-                if(GetEntityHealth(Ped) > 1) {
-                    if(Player === source) {
+                if (GetEntityHealth(Ped) > 1) {
+                    if (Player === source) {
                         SendMessage(source, Config.Commands.AdRes.Messages.ToStaff.Usage);
                     } else {
                         SendMessage(source, Config.Commands.AdRes.Messages.ToStaff.Alive);
                     }
                 } else {
                     emitNet('DeathScript:Admin:Respawn', Player, source, false);
-                    if(Player === source) {
+                    if (Player === source) {
                         SendMessage(source, Config.Commands.AdRes.Messages.ToStaff.Respawned);
                     } else {
                         SendMessage(source, Config.Commands.AdRes.Messages.ToStaff.Respawned);
@@ -78,7 +78,7 @@ if (Config.Commands.AdRes.Enabled) {
  */
 if (Config.Commands.AdRevAll.Enabled) {
     RegisterCommand('adrevall', source => {
-        if(IsPlayerAceAllowed(source, 'command.adrevall')) {
+        if (IsPlayerAceAllowed(source, 'DeathScript.AdRevAll')) {
             emitNet('DeathScript:Admin:Revive', -1, source, true);
             SendMessage(source, Config.Commands.AdRevAll.Messages.ToStaff.Revived);
         } else {
@@ -92,7 +92,7 @@ if (Config.Commands.AdRevAll.Enabled) {
  */
 if (Config.Commands.AdResAll.Enabled) {
     RegisterCommand('adresall', source => {
-        if(IsPlayerAceAllowed(source, 'command.adresall')) {
+        if (IsPlayerAceAllowed(source, 'DeathScript.AdResAll')) {
             emitNet('DeathScript:Admin:Respawn', -1, source, true);
             SendMessage(source, Config.Commands.AdResAll.Messages.ToStaff.Respawned);
         } else {
@@ -106,7 +106,7 @@ if (Config.Commands.AdResAll.Enabled) {
  */
 if (Config.Commands.ToggleDS.Enabled) {
     RegisterCommand('toggleds', (source) => {
-        if(IsPlayerAceAllowed(source, 'command.toggleds')) {
+        if (IsPlayerAceAllowed(source, 'DeathScript.ToggleDS')) {
             Config.Enabled = !Config.Enabled;
             emitNet('DeathScript:Toggle', -1, Config.Enabled);
             SendMessage(-1, Config.Enabled ? Config.Commands.ToggleDS.Messages.ToggledOn : Config.Commands.ToggleDS.Messages.ToggledOff);
@@ -124,7 +124,7 @@ if (Config.Commands.ToggleDS.Enabled) {
 // ========================================================================================================================
 
 onNet('DeathScript:Admin:CheckAce', (Moderator, Command) => {
-    if(IsPlayerAceAllowed(Moderator, `command.${Command.toLowerCase()}`)) {
+    if (IsPlayerAceAllowed(Moderator, `DeathScript.${Command.toLowerCase()}`)) {
         emitNet('DeathScript:Admin:CheckAce:Return', Moderator, Moderator, Command, true);
     } else {
         emitNet('DeathScript:Admin:CheckAce:Return', Moderator, Moderator, Command, false);
@@ -132,21 +132,21 @@ onNet('DeathScript:Admin:CheckAce', (Moderator, Command) => {
 });
 
 onNet('DeathScript:Admin:ValidatePlayer', (Moderator, Player, Command) => {
-    if(ValidatePlayer(Moderator, Player, Command)) {
+    if (ValidatePlayer(Moderator, Player, Command)) {
         const Ped = GetPlayerPed(Player);
-        if(GetEntityHealth(Ped) > 1) {
-            if(parseInt(Player) === Moderator) {
+        if (GetEntityHealth(Ped) > 1) {
+            if (parseInt(Player) === Moderator) {
                 SendMessage(Moderator, Config.Commands[Command].Messages.ToStaff.YouAlive);
             } else {
                 SendMessage(Moderator, Config.Commands[Command].Messages.ToStaff.Alive);
             }
         } else {
-            if(Command === 'AdRev') {
+            if (Command === 'AdRev') {
                 emitNet('DeathScript:Admin:Revive', Player, Moderator, false);
             } else {
                 emitNet('DeathScript:Admin:Respawn', Player, Moderator, false);
             }
-            if(parseInt(Player) === Moderator) {
+            if (parseInt(Player) === Moderator) {
                 SendMessage(Moderator, Config.Commands[Command].Messages.ToStaff[Command === 'AdRev' ? 'Revived' : 'Respawned']);
             } else {
                 SendMessage(Moderator, Config.Commands[Command].Messages.ToStaff[Command === 'AdRev' ? 'Revived' : 'Respawned']);
