@@ -8,7 +8,7 @@ const Config = {
                 Enabled: true, // Weather the command's keybind is enabled or not, cannot be toggle from in-game
                 DefaultKeybind: '' // The default keybind, every play can customize it to their own preference
             },
-            WaitTime: 240, // The default wait time the player has to wait before they can use the command // TIME IN SECONDS \\
+            WaitTime: 5, // The default wait time the player has to wait before they can use the command // TIME IN SECONDS \\
             Messages: { // The messages use in the command, I don't think you have to touch anything, but; you do you
                 Revive: ['^1(INFO)^0', ' ^4You were revived.^0'],
                 Alive: ['^1(INFO)^0', ' ^1You are alive.^0']
@@ -144,11 +144,11 @@ const Config = {
      * you can add more hospitals using this format: [X, Y, Z, Heading]
      */
     Hospitals: [
-        [296.21, -1447.39, 30.4, 320.02], // Central LS Medical Center
-        [298.38, -584.36, 44, 74.56], // Pillbox Hill Medical Center
-        [-449.01, -340.66, 35, 79.78], // Mount Zonah Medical Center
-        [1839.03, 3672.32, 35, 208.24], // Sandy Shores Medical Center
-        [-247.07, 6330.2, 33, 227.3] // Paleto Bay Medical Center
+        { X: 296.21, Y: -1447.39, Z: 30.4, Heading: 320.02, Name: 'Central LS Medical Center' },
+        { X: 298.38, Y: -584.36, Z: 44, Heading: 74.56, Name: 'Pillbox Hill Medical Center' },
+        { X: -449.01, Y: -340.66, Z: 35, Heading: 79.78, Name: 'Mount Zonah Medical Center' },
+        { X: 1839.03, Y: 3672.32, Z: 35, Heading: 208.24, Name: 'Sandy Shores Medical Center' },
+        { X: -247.07, Y: 6330.2, Z: 33, Heading: 227.3, Name: 'Paleto Bay Medical Center' }
     ],
     Sounds: { // The sounds used in this resource, please no touchy touchy
         Warning: [-1, 'HACKING_CLICK', 0, 1]

@@ -26,7 +26,7 @@ const Cached = {
     _lastKeybindUsedAt: Date.now()
 };
 
-const colors = [ ['~c~', '~r~'], ['~y~', '~y~'] ];
+const colors = [['~c~', '~r~'], ['~y~', '~y~']];
 
 const colGray = colors[0][0];
 let colRed = colors[0][1];
@@ -48,6 +48,9 @@ if (Config.Commands.AdRevAll.Enabled) emit('chat:addSuggestion', Config.Commands
 if (Config.Commands.AdResAll.Enabled) emit('chat:addSuggestion', Config.Commands.AdResAll.Suggestion.name, Config.Commands.AdResAll.Suggestion.help, []);
 if (Config.Commands.ToggleDS.Enabled) emit('chat:addSuggestion', Config.Commands.ToggleDS.Suggestion.name, Config.Commands.ToggleDS.Suggestion.help, []);
 
+emit('chat:removeSuggestion', '/=-+_+-=Death-_._-Script=-+_+-=Key-_._-bind=-+_+-=AdRev');
+emit('chat:removeSuggestion', '/=-+_+-=Death-_._-Script=-+_+-=Key-_._-bind=-+_+-=AdRes');
+
 /**
  * Registering keymappings AKA; Keybinds, for player customizability and quick command usage
  */
@@ -55,6 +58,7 @@ RegisterKeyMapping('revive', 'Revive', 'keyboard', Config.Commands.Revive.Keybin
 RegisterKeyMapping('respawn', 'Respawn', 'keyboard', Config.Commands.Revive.Keybind.DefaultKeybind);
 RegisterKeyMapping('=-+_+-=Death-_._-Script=-+_+-=Key-_._-bind=-+_+-=AdRev', 'Admin Revive', 'keyboard', Config.Commands.AdRev.Keybind.DefaultKeybind);
 RegisterKeyMapping('=-+_+-=Death-_._-Script=-+_+-=Key-_._-bind=-+_+-=AdRes', 'Admin Respawn', 'keyboard', Config.Commands.AdRes.Keybind.DefaultKeybind);
+
 
 /**
  * Revive command/Keybind
@@ -101,7 +105,7 @@ if (Config.Commands.Respawn.Enabled) {
 if (Config.Commands.AdRev.Enabled) {
     RegisterCommand('=-+_+-=Death-_._-Script=-+_+-=Key-_._-bind=-+_+-=AdRev', () => {
         console.log(AreKeybindsOnCooldown);
-        if(!AreKeybindsOnCooldown()) {
+        if (!AreKeybindsOnCooldown()) {
             Cached._lastKeybindUsedAt = Date.now();
             emitNet('DeathScript:Admin:CheckAce', GetPlayerServerId(GetPlayerIndex()), 'AdRev');
         } else {
@@ -117,7 +121,7 @@ if (Config.Commands.AdRev.Enabled) {
  */
 if (Config.Commands.AdRes.Enabled) {
     RegisterCommand('=-+_+-=Death-_._-Script=-+_+-=Key-_._-bind=-+_+-=AdRes', () => {
-        if(!AreKeybindsOnCooldown()) {
+        if (!AreKeybindsOnCooldown()) {
             Cached._lastKeybindUsedAt = Date.now();
             emitNet('DeathScript:Admin:CheckAce', GetPlayerServerId(GetPlayerIndex()), 'AdRes');
         } else {
@@ -251,7 +255,7 @@ setTick(async () => {
     const Ped = PlayerPedId();
     if (IsEntityDead(Ped) && GetEntityHealth(Ped) <= 1) {
         if (!Config.Enabled) {
-            if(Cached._isAutoRespawnAllowed) {
+            if (Cached._isAutoRespawnAllowed) {
                 Cached._isAutoRespawnAllowed = false;
 
                 Cached._respawnAt = Date.now() + (Config.Commands.Respawn.AutoRespawnTimer * 1000);
@@ -355,7 +359,7 @@ const RevivePed = Ped => {
  * @example RespawnPed(Ped)
  */
 const RespawnPed = async Ped => {
-    const [X, Y, Z, Heading] = GetNearestHospital(Ped);
+    const { X, Y, Z, Heading } = GetNearestHospital(Ped);
     let tick;
 
     if (Config.GoToClouds) { // You can disable the clouds transition for a quick and instant respawn from the 'sh_config.js' file.
@@ -403,9 +407,10 @@ const RespawnPed = async Ped => {
  * @example GetNearestHospital(Ped)
  */
 const GetNearestHospital = Ped => {
-    const Hospitals = Config.Hospitals;
-    Hospitals.map((X, Y, Z, Heading) => ({ Distance: Vdist(...GetEntityCoords(Ped), X, Y, Z), X: X, Y: Y, Z: Z, Heading: Heading }));
+    let Hospitals = Config.Hospitals;
+    Hospitals = Hospitals.map(({ X, Y, Z, Heading, Name }) => ({ Distance: Vdist(...GetEntityCoords(Ped), X, Y, Z), X: X, Y: Y, Z: Z, Heading: Heading, Name: Name }));
     const ClosestHospital = Hospitals.reduce((a, b) => a.Distance < b.Distance ? a : b);
+    console.log(ClosestHospital)
     return ClosestHospital;
 };
 
@@ -443,12 +448,12 @@ const Delay = MS => {
  * @example AreKeybindsOnCooldown()
  */
 const AreKeybindsOnCooldown = () => {
-    if(Cached._lastKeybindUsedAt + 1500 > Date.now()) {
+    if (Cached._lastKeybindUsedAt + 1500 > Date.now()) {
         return true;
     } else {
         return false;
     }
-} ;
+};
 
 /**
  * Credit to Flatracer (https://forum.cfx.re/u/flatracer)
