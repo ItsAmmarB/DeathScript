@@ -49,7 +49,7 @@ if (Config.Commands.AdRes.Enabled) {
     RegisterCommand('adres', (source, args) => {
         if (IsPlayerAceAllowed(source, 'DeathScript.AdRes')) {
             const Player = args[0] || source;
-            if (ValidatePlayer(source, Player, 'AdRev')) {
+            if (ValidatePlayer(source, Player, 'AdRes')) {
                 const Ped = GetPlayerPed(Player);
                 if (GetEntityHealth(Ped) > 1) {
                     if (Player === source) {
