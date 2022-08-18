@@ -65,7 +65,7 @@ RegisterKeyMapping('=-+_+-=Death-_._-Script=-+_+-=Key-_._-bind=-+_+-=AdRes', 'Ad
  */
 if (Config.Commands.Revive.Enabled) {
     RegisterCommand('revive', () => {
-        if (GetEntityHealth(PlayerPedId()) <= 2) {
+        if (GetEntityHealth(PlayerPedId()) <= 1) {
             if (Cached._isReviveAllowed) {
                 RevivePed(PlayerPedId());
                 return emit('chat:addMessage', { args: Config.Commands.Revive.Messages.Revive });
@@ -83,7 +83,7 @@ if (Config.Commands.Revive.Enabled) {
  */
 if (Config.Commands.Respawn.Enabled) {
     RegisterCommand('respawn', () => {
-        if (GetEntityHealth(PlayerPedId()) <= 2) {
+        if (GetEntityHealth(PlayerPedId()) <= 1) {
             if (Cached._isRespawnAllowed) {
                 RespawnPed(PlayerPedId());
                 emit('chat:addMessage', { args: Config.Commands.Respawn.Messages.Respawn });
@@ -154,7 +154,7 @@ on('onClientMapStart', async () => {
  */
 onNet('DeathScript:Admin:Revive', (Moderator, Everyone = false) => {
     if (Everyone) {
-        if (GetEntityHealth(PlayerPedId()) <= 2) {
+        if (GetEntityHealth(PlayerPedId()) <= 1) {
             RevivePed(PlayerPedId());
             if (Moderator !== GetPlayerServerId(GetPlayerIndex())) emit('chat:addMessage', { args: Config.Commands.AdRevAll.Messages.ToPlayer.Revived });
             return;
@@ -172,7 +172,7 @@ onNet('DeathScript:Admin:Revive', (Moderator, Everyone = false) => {
  */
 onNet('DeathScript:Admin:Respawn', (Moderator, Everyone = false) => {
     if (Everyone) {
-        if (GetEntityHealth(PlayerPedId()) <= 2) {
+        if (GetEntityHealth(PlayerPedId()) <= 1) {
             RespawnPed(PlayerPedId());
             if (Moderator !== GetPlayerServerId(GetPlayerIndex())) emit('chat:addMessage', { args: Config.Commands.AdResAll.Messages.ToPlayer.Respawned });
             return;
