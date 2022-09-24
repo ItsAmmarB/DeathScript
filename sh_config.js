@@ -8,7 +8,7 @@ const Config = {
                 Enabled: true, // Weather the command's keybind is enabled or not, cannot be toggle from in-game
                 DefaultKeybind: '' // The default keybind, every play can customize it to their own preference
             },
-            WaitTime: 5, // The default wait time the player has to wait before they can use the command // TIME IN SECONDS \\
+            WaitTime: 240, // The default wait time the player has to wait before they can use the command // TIME IN SECONDS \\
             Messages: { // The messages use in the command, I don't think you have to touch anything, but; you do you
                 Revive: ['^1(INFO)^0', ' ^4You were revived.^0'],
                 Alive: ['^1(INFO)^0', ' ^1You are alive.^0']
@@ -24,7 +24,7 @@ const Config = {
                 DefaultKeybind: '' // The default keybind, every play can customize it to their own preference
             },
             WaitTime: 120, // The default wait time the player has to wait before they can use the command // TIME IN SECONDS \\
-            AutoRespawnTimer: 10, // this will be the wait time for auto respawn when the script is toggled off using the command or in line No.2
+            AutoRespawnTimer: 10, // this will be the wait time for auto respawn when the script is toggled off using the "/toggleds" command
             Messages: { // The messages use in the command, I don't think you have to touch anything, but; you do you
                 Respawn: ['^1(INFO)^0', ' ^4You respawned.^0'],
                 Alive: ['^1(INFO)^0', ' ^1You are alive.^0']
@@ -35,7 +35,7 @@ const Config = {
         },
         AdRev: {
             Enabled: true, // Weather is the command enabled, cannot be toggle from in-game
-            PermissionReqired: true, // self-explanatory, AcePermissions by default, permission node is "command.AdRev"
+            PermissionReqired: true, // self-explanatory, AcePermissions by default, permission node is "DeathScript.AdRev"
             Keybind: {
                 Enabled: true, // Weather the command's keybind is enabled or not, cannot be toggle from in-game
                 DefaultKeybind: '' // The default keybind, every play can customize it to their own preference
@@ -64,7 +64,7 @@ const Config = {
         },
         AdRes: {
             Enabled: true, // Weather is the command enabled, cannot be toggle from in-game
-            PermissionReqired: true, // self-explanatory, AcePermissions by default, permission node is "command.AdRes"
+            PermissionReqired: true, // self-explanatory, AcePermissions by default, permission node is "DeathScript.AdRes"
             Keybind: {
                 Enabled: true, // Weather the command's keybind is enabled or not, cannot be toggle from in-game
                 DefaultKeybind: '' // The default keybind, every play can customize it to their own preference
@@ -93,7 +93,7 @@ const Config = {
         },
         AdRevAll: {
             Enabled: true, // Weather is the command enabled, cannot be toggle from in-game
-            PermissionReqired: true, // self-explanatory, AcePermissions by default, permission node is "command.AdRev"
+            PermissionReqired: true, // self-explanatory, AcePermissions by default, permission node is "DeathScript.AdRevAll"
             Messages: { // The messages use in the command, I don't think you have to touch anything, but; you do you
                 ToPlayer: { // The messages directed to the player targeted by the staff member or the player who is using the command
                     Revived: ['^1(INFO)^0', ' ^4You have been revived by a staff member.^0']
@@ -109,7 +109,7 @@ const Config = {
         },
         AdResAll: {
             Enabled: true, // Weather is the command enabled, cannot be toggle from in-game
-            PermissionReqired: true, // self-explanatory, AcePermissions by default, permission node is "command.AdRes"
+            PermissionReqired: true, // self-explanatory, AcePermissions by default, permission node is "DeathScript.AdResAll"
             Messages: { // The messages use in the command, I don't think you have to touch anything, but; you do you
                 ToPlayer: { // The messages directed to the player targeted by the staff member or the player who is using the command
                     Respawned: ['^1(INFO)^0', ' ^4You have been respawned by a staff member.^0']
@@ -125,7 +125,7 @@ const Config = {
         },
         ToggleDS: {
             Enabled: true, // Weather is the command enabled, cannot be toggle from in-game
-            PermissionReqired: true, // self-explanatory, AcePermissions by default, permission node is "command.ToggleDS"
+            PermissionReqired: true, // self-explanatory, AcePermissions by default, permission node is "DeathScript.ToggleDS"
             Messages: { // The messages use in the command, I don't think you have to touch anything, but; you do you
                 NoPermission: ['^1(INFO)^0', ' ^1Insufficient  permissions^0'],
                 ToggledOn: ['^1(INFO)^0', ' ^0DeathScript has been toggle on!^0'],
